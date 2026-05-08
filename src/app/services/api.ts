@@ -8,7 +8,7 @@ import { Data } from './data';
 })
 export class Api {
   // private baseURL: string = 'mymahir1234experimentrandom-production.up.railway.app/api';
-    private baseURL: string = 'http://localhost:3000/api';
+    public baseURL: string = 'http://localhost:3000/api';
 
 
   constructor(
