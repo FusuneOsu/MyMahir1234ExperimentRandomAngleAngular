@@ -1,0 +1,9 @@
+Commands
+
+start ang = ng serve / ng serve --open
+
+make new = n g c folderName/packageName (short for ng generate component <component name>)
+
+generate pipe; ng generate pipe pipes/Convert or ng g p pipes/Convert
+
+create new service: ng generate service services/Data

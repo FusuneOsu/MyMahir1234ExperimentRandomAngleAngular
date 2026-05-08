@@ -1,0 +1,50 @@
+<!-- <p>login works!</p> -->
+<!-- Login Page -->
+
+<div class="card-container">
+    <mat-card appearance="outlined" class="card">
+        
+        <mat-card-header>
+            <mat-card-title>Sign In</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+            <!-- [formGroup] in a square bracket bcause it's variable not a string -->
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                
+                <!-- email -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" placeholder="Enter your email">
+                    @if(
+                    (loginForm.controls['email'].hasError('required')||loginForm.controls['email'].hasError('email')) 
+                    && loginForm.controls['email'].touched
+                    ){
+                        <mat-error>Please enter valid email or password</mat-error>
+                    }
+                </mat-form-field>
+
+                <!-- password -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input [type]="showPassword ? 'text' : 'password'" matInput placeholder="Enter your password">
+                    <button mat-icon-button matSuffix (click)="onShowPassword()" type="button">
+                        <mat-icon>{{showPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    @if(
+                    loginForm.controls['password'].hasError('required')
+                    && loginForm.controls['password'].touched
+                    ){
+                        <mat-error>Please enter valid email or password</mat-error>
+                    }
+                </mat-form-field>
+
+                <mat-card-actions align="end">
+                    <!-- no email and/or password = button greyed out -->
+                    <button mat-raised-button type="submit" [disabled]="!loginForm.valid">Submit</button>
+                </mat-card-actions>
+
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

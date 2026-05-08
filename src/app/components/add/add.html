@@ -1,0 +1,16 @@
+<!-- <p>add works!</p> -->
+
+<h2 mat-dialog-title>Add New To-do</h2>
+<mat-dialog-content>
+    <form class="todo-form" [formGroup]="todoForm"> <!-- formGroup -->
+        <mat-form-field>
+            <mat-label>Title</mat-label>
+                <input matInput formControlName="title" type="text" placeholder="Enter title"/>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button mat-button (click)="onSubmit()">Submite</button>
+</mat-dialog-actions>

@@ -1,0 +1,15 @@
+<!-- <p>toolbar works!</p> -->
+  <mat-toolbar>
+    <div class="title">Menu</div>
+    <span class="spacer"></span>
+    
+    <!-- convert these statements below to a for loop -->
+    <!-- <a routerLink="/home" mat-button class="icon">Home</a>
+    <a routerLink="/calculator" mat-button class="icon">Calculatore</a>
+    <a routerLink="/todo" mat-button class="icon">To-do</a> -->    
+
+    @for (menuItem of menu; track $index)
+    {
+      <a (click)="navigatePage(menuItem)" mat-button class="icon">{{menuItem.title}}</a>
+    }
+  </mat-toolbar>
