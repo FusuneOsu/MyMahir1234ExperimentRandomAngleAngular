@@ -60,7 +60,7 @@ export class Api {
     return new Promise((resolve, reject) => 
     {
       if(method == 'put'){
-        this.http.put(fullURL, headers).subscribe
+        this.http.put(fullURL, payload, headers).subscribe
         ({
           next: (response: any) => {resolve(response)},
           error: (error: any) => {reject(error)}
