@@ -66,7 +66,7 @@ export class Api {
           error: (error: any) => {reject(error)}
         });
       }else{
-        this.http.get(fullURL, headers).subscribe
+        this.http.post(fullURL, payload, headers).subscribe 
         ({
           next: (response: any) => {resolve(response)},
           error: (error: any) => {reject(error)}
