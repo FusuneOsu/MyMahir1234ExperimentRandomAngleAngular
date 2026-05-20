@@ -1,8 +1,8 @@
-import { Component, inject } from '@angular/core';
-import { SharedModules } from '../../../shared/shared.module';
+import { Component,Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Inject } from '@angular/core';
+import { SharedModules } from '../../../shared/shared.module';
+
 
 @Component({
   selector: 'app-add',

@@ -4,7 +4,7 @@ import { Calculator } from './pages/calculator/calculator';
 import { Toolbar } from './components/toolbar/toolbar';
 import { Todo } from './pages/todo/todo';
 import { Reports } from './pages/reports/reports';
-import { Add } from './components/add/add';
+import { Add } from './pages/add/add';
 import { Login } from './pages/login/login';
 import { authGuard } from './guards/auth-guard';
 

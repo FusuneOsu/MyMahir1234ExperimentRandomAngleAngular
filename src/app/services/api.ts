@@ -7,13 +7,22 @@ import { Data } from './data';
   providedIn: 'root',
 })
 export class Api {
-  // private baseURL: string = 'mymahir1234experimentrandom-production.up.railway.app/api';
-    public baseURL: string = 'http://localhost:3000/api';
+    public baseURL: string = 'https://mymahir1234experimentrandom-production.up.railway.app/api';
+    // public baseURL: string = 'http://localhost:3000/api';
 
+  // public baseURL: string;
 
   constructor(
     private http: HttpClient,
-    private dataService: Data){
+    private dataService: Data
+  ) {
+
+    // an attempt at doing if else
+    // if (window.location.hostname === 'localhost') {
+    //   this.baseURL = 'http://localhost:3000/api';
+    // } else {
+    //   this.baseURL = 'https://mymahir1234experimentrandom-production.up.railway.app/api';
+    // }
 
   }
 

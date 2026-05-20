@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, viewChild } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { SharedModules } from '../../../shared/shared.module';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Api } from '../../services/api';
@@ -14,7 +14,7 @@ import { ViewChild } from '@angular/core';
 export class Add implements OnInit{
   public reportForm: FormGroup;
   public id: any;
-  public selectedFile: any = {name: ''};
+  public selectedFile: any = { name: '' };
   public imageUrl: string | null = null;
   @ViewChild('fileInput' , {static: false}) fileInput!: ElementRef;
 
@@ -32,13 +32,14 @@ export class Add implements OnInit{
     })
   };
 
-  onFileSelected(event:any){
-    const file: File = event.target.files[0];
-    if(file) this.selectedFile = file;
-    if(this.imageUrl) URL.revokeObjectURL(this.imageUrl);
-    this.imageUrl = URL.createObjectURL(file);
+  onFileSelected(event: any){
+      const file: File = event.target.files[0];
+      if(file) {
+        this.selectedFile = file;
+        if(this.imageUrl) URL.revokeObjectURL(this.imageUrl);
+        this.imageUrl = URL.createObjectURL(file);
+      }
   }
-
   ngOnDestroy(){
     if(this.imageUrl) URL.revokeObjectURL(this.imageUrl);
   }
@@ -58,7 +59,7 @@ export class Add implements OnInit{
             date: this.parseApiDate(report.date)
           })
           console.log(report.image_path)
-          this.imageUrl = this.apiService.baseURL + '/' + report.file_path;
+          this.imageUrl = this.apiService.baseURL + '/' + report.image_path;
           
           //
           let file_name = report.image_path.split('/');
@@ -142,16 +143,19 @@ export class Add implements OnInit{
       formData.append('date', reportData.date);
       formData.append('category', reportData.category);
 
-      if (this.selectedFile) formData.append('image',this.selectedFile, this.selectedFile.name);
-
-
+      // if(this.selectedFile) formData.append('image', this.selectedFile, this.selectedFile.name);
+      // ChatGPT fix, not from original code
+      if (this.selectedFile instanceof File) {
+        formData.append('image', this.selectedFile, this.selectedFile.name);
+      }
 
       let message: string = 'Report submitted successfully';
+      
       if(this.id){
-        var res = await this.apiService.httpPost('report/update/'+this.id, formData, 'put');
+        var res = await this.apiService.httpPost('/reports/update/'+this.id, formData, 'put');
         message = 'Report updated successfully'
       } else {
-        var res = await this.apiService.httpPost('report/add', formData);
+        var res = await this.apiService.httpPost('/reports/add', formData);
       }
 
       if(res){
