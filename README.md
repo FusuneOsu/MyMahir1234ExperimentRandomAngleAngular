@@ -2,6 +2,8 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.9.
 
+Angular code which is used as the frontend for MyMahir Fullstack Developer program
+
 ## Development server
 
 To start a local development server, run:
