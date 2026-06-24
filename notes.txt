@@ -7,3 +7,64 @@ make new = n g c folderName/packageName (short for ng generate component <compon
 generate pipe; ng generate pipe pipes/Convert or ng g p pipes/Convert
 
 create new service: ng generate service services/Data
+
+
+          [()] -> Data flows back and forth between component and UI
+          () —> Listens to UI events and calls component methods (UI → Component)
+          [] —> Binds component property to HTML element property/attribute (Component → UI)
+          {{}} -> Displays component data in the template (Component → UI, display only)
+          {} — Control flow :
+            Used with Angular control flow directives like @if, @for, @switch, @else
+            The {} encloses the conditional block, not the condition itself
+            The condition goes in (), the block content goes in {}
+
+pages/calculator.html ✅
+pages/calculator.ts ✅
+
+App:
+app.config.ts <optional>
+app.html ✅
+app.routes.ts ✅
+app.ts✅
+
+pages/todo.html✅
+pages/todo.ts✅
+
+pages/add.html ✅
+pages/add.ts ✅ - agak pening, kena study balik
+
+Pipes:
+convert-pipe.ts✅
+
+src:
+index.html✅
+
+Components:
+components/add.html✅
+components/add.ts✅
+
+components/toolbar.html✅
+components/toolbar.ts✅
+
+Guard:
+auth-guard.ts✅
+
+Pages: 
+
+home-page.html✅
+home-page.ts✅
+
+pages/login.html✅
+pages/login.ts✅
+
+pages/reports.html✅
+pages/reports.ts✅
+
+
+
+Services:
+api.ts✅
+data.ts✅
+ui.ts✅
+
+shared/shared.module.ts✅

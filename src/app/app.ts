@@ -12,11 +12,16 @@ import { Data } from './services/data';
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
+
 export class App implements OnInit{
   protected readonly title = signal('MyAngular2026');
   public pageTitle: string='Home';
 
-  ngOnInit(){}
+
+
+  ngOnInit(){} /* ->  Angular lifecycle hook that runs once when the component is initialized/created. */
+
+  /* actual initialization is happening in the constructor instead: */
   constructor(private data: Data)
   {
     this.data.observeEvent().subscribe

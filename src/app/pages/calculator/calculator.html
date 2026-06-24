@@ -5,6 +5,12 @@
       <label for="num1">First Number:</label>
       <input [(ngModel)]="num1" type="number" placeholder="Enter first number" value="">
 
+      <!-- 
+      [(ngModel)]="num1" ->
+      Two-way data binding: Any value typed in the input updates num1 in the component, 
+      and if num1 changes in code, the input updates automatically
+      -->
+
       <label for="num2">Second Number:</label>
       <input [(ngModel)]="num2" type="number" placeholder="Enter second number" value="">
 
@@ -13,6 +19,14 @@
         <button class="save-btn" (click)="btnCalculate('+')">
           <i class="fa-solid fa-add"></i> Add
         </button>
+
+        <!-- 
+        (click) -> 
+        Event binding: When the button is clicked, it calls the btnCalculate() method 
+        and passes the operator ('+' or '-')
+        The "()" syntax listens to events
+        -->
+
         <button class="save-btn" (click)="btnCalculate('-')">
           <i class="fa-solid fa-minus"></i> Subtract
         </button>
@@ -20,13 +34,38 @@
       
       <!-- result display -->
       <div class="result-text">
+
+        <!-- {{ result }} ->
+        Interpolation: Displays the value of result property from your component
+        The {{  }} syntax automatically updates whenever result changes -->
+
         Result: {{ result }} <br>  
+
+        <!-- @if(result !=0)
+        Modern Angular control flow: Only renders the div below if result is not equal to 0
+        Replaces the older *ngIf directive 
+        
+        [ngClass]="result <= 10 ? 'error' : 'morethanten'" ->
+        Property binding: Dynamically applies CSS class based on a condition. left side true, right side false
+        The "[]" syntax is property binding -->
+
         @if(result !=0) {<div [ngClass]=" result <= 10 ? 'error' : 'morethanten' ">The number is {{ result <= 10 ? 'less' : 'more' }} than 10</div>}
         
           <!-- @if(result <= 10)
           {<div [ngClass]=" result <= 10 ? 'error' : 'morethanten' ">The number is less than 10</div>}
           @else
           {<div [ngClass]=" result <= 10 ? 'error' : 'morethanten' ">The number is more than 10</div>} -->
+
+          <!-- 
+          [()] -> Data flows back and forth between component and UI
+          () —> Listens to UI events and calls component methods (UI → Component)
+          [] —> Binds component property to HTML element property/attribute (Component → UI)
+          {{}} -> Displays component data in the template (Component → UI, display only)
+          {} — Control flow :
+            Used with Angular control flow directives like @if, @for, @switch, @else
+            The {} encloses the conditional block, not the condition itself
+            The condition goes in (), the block content goes in {}
+          -->
         
       </div>
 

@@ -1,16 +1,44 @@
 <!-- <p>reports works!</p> -->
 <div class="button-container">
+    <!-- mat-raised-button — Angular Material directive that styles the button with a raised appearance (shadow, background color, hover effects).
+     
+    routerLink="/add" — Angular routing directive that navigates to the /add route when clicked (without page reload). -->
     <button mat-raised-button routerLink="/add">Add Report</button>
+    <!-- (click) = "onLogout()" — event binding that calls the onLogout() method from the component when clicked.
+    (click) — listens for the click event.
+    onLogout() — method defined in reports.ts that removes tokens and navigates to login. -->
     <button mat-raised-button (click) = "onLogout()">Logout</button>
-
 </div>
 
+<!-- mat-table — Angular Material directive that provides table functionality (sorting, filtering, etc.).
+
+[dataSource]="dataSource" — property binding that passes the dataSource component property (the MatTableDataSource with report data) to the table. -->
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- matColumnDef="no" — defines a column named "no" (appears in displayedColumns array in component). -->
     <ng-container matColumnDef="no">
+        <!-- mat-header-cell — Material styling directive for header appearance.
+        
+        *matHeaderCellDef — structural directive that marks this <th> as the header cell for the "no" column. 
+            
+        no, No => number -->
         <th mat-header-cell *matHeaderCellDef>No</th>
+        <!-- mat-cell — Material styling directive.
+        
+        *matCellDef="let element; let i = index" — structural directive that repeats this cell for each row:
+        
+        let element — local variable representing the current report object.
+        
+        let i = index — local variable for the row index (0-based).
+        
+        {{i+1}} — interpolation that displays the index + 1 (so numbering starts at 1 instead of 0).
+        
+        Purpose: Creates table data cells that display the row number (1, 2, 3...). -->
         <td mat-cell *matCellDef="let element; let i = index">{{i+1}}</td>
     </ng-container>
 
+    <!-- A special element that can hold structural directives without adding new elements to the DOM.
+
+    The <ng-container> allows us to use structural directives without any extra element, making sure that the only DOM changes being applied are those dictated by the directives themselves. -->
     <ng-container matColumnDef="title">
         <th mat-header-cell *matHeaderCellDef>Title</th>
         <td mat-cell *matCellDef="let element">{{element.title}}</td>
@@ -30,7 +58,20 @@
         </td>
     </ng-container>
 
+    <!-- mat-header-row — Material directive that styles this as a header row (bold text, background color).
+    
+    *matHeaderRowDef="displayedColumns" — structural directive that renders the header row based on the displayedColumns array from the component.
+    
+    displayedColumns = ['no', 'title', 'date', 'actions'] (from reports.ts).
+    This tells the table which column headers to render and in what order. -->
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <!-- mat-row — Material directive that styles the data rows (regular cell styling, hover effects).
+    
+    *matRowDef="let row; columns: displayedColumns" — structural directive that repeats this row for each report in the data source:
+    
+    let row — local variable representing the current report object from the dataSource.
+    
+    columns: displayedColumns — specifies which columns to render using the displayedColumns array. -->
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 
 </table>

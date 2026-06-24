@@ -2,6 +2,18 @@
 
 <h2 mat-dialog-title>Add New To-do</h2>
 <mat-dialog-content>
+    <!-- /* private formBuilder: FormBuilder — This is a service injected into the component. It's a tool for building forms.
+
+    formBuilder creates todoForm (in the constructor): 
+
+    The formBuilder uses its .group() method to create a form object and assigns it to this.todoForm.
+
+    [formGroup]="todoForm" in the HTML — This binds the form object (not the builder) to the template:
+
+    So the flow is:
+
+    formBuilder (the tool) → creates → todoForm (the form object)
+    [formGroup]="todoForm" → uses → the form object */ -->
     <form class="todo-form" [formGroup]="todoForm"> <!-- formGroup -->
         <mat-form-field>
             <mat-label>Title</mat-label>
@@ -12,5 +24,5 @@
 
 <mat-dialog-actions>
     <button mat-button (click)="onCancel()">Cancel</button>
-    <button mat-button (click)="onSubmit()">Submite</button>
+    <button mat-button (click)="onSubmit()">Submit</button>
 </mat-dialog-actions>

@@ -1,30 +1,115 @@
 <!-- <p>add works!</p> -->
 
 <div class="card-container">
+    <!-- mat-card is used to create a card component -->
     <mat-card appearance="outlined" class="card">
         
+        <!-- mat-card-header is used to define the header section of the card -->
         <mat-card-header>
+            <!-- mat-card-title is used to define the title of the card 
+             
+            {{id? 'Update':'Add New'}} — Angular template interpolation with a ternary operator:
+
+            id — checks if the component property id exists and has a truthy value.
+            
+            ? — if id is truthy (not null, not undefined, not 0).
+            
+            'Update' — displays this text if id is truthy (user is updating an existing report).
+            
+            : — else operator.
+            
+            'Add New' — displays this text if id is falsy (creating a new report).-->
             <mat-card-title>{{id? 'Update':'Add New'}} Report</mat-card-title>
         </mat-card-header>
 
+        <!-- mat-card-content is used to define the content section of the card -->
         <mat-card-content>
+            <!-- [formGroup]="reportForm" — property binding that connects the HTML form to a FormGroup in the component:
+
+            formGroup — Angular Reactive Forms directive.
+            
+            reportForm — the FormGroup object defined in add.ts that manages form state and validation.
+            
+            This binding synchronizes form data (inputs, selects, etc.) with the component's form model. 
+            
+            (ngSubmit)="onSubmit()" — event binding that triggers when the form is submitted:
+
+            (ngSubmit) — Angular directive that listens for form submission (when user clicks submit button or presses Enter).
+            
+            onSubmit() — component method that handles form submission (validates, sends data to API, etc.). -->
             <form [formGroup]="reportForm" (ngSubmit)="onSubmit()">
                 
+                <!-- mat-form-field is used to create a form field with an outline appearance -->
                 <mat-form-field appearance="outline" class="full-width">
+                    <!-- mat-label is used to define the label for the form field -->
                     <mat-label>Report Title</mat-label>
+                    <!-- matInput — Angular Material directive that styles the <input> element:
+
+                        Applies Material Design styling (underline animation, focus effects, error states).
+                        
+                        Enhances the native HTML input with Material appearance.
+                        
+                        Must be used inside <mat-form-field> for proper styling.
+                    
+                    formControlName="title" — Reactive Forms directive that binds the input to a form control:
+
+                        Connects this input to the FormControl named "title" in the reportForm FormGroup.
+                        
+                        Any changes typed into this input automatically update the reportForm.get('title') value.
+                        
+                        Allows validation, dirty/touched tracking, and form state management. -->
                     <input matInput formControlName="title" placeholder="Enter title">
                 </mat-form-field>
                     
                 <mat-form-field appearance="outline" class="full-width">
                     <mat-label>Report Date</mat-label>
+                    <!-- matInput — Angular Material directive that styles the <input> element:
+
+                        Applies Material Design styling (underline animation, focus effects, error states).
+                        
+                        Enhances the native HTML input with Material appearance.
+                        
+                        Must be used inside <mat-form-field> for proper styling.
+                    
+                    mat-datepicker-toggle is used to create a toggle button for the date picker
+
+                    formControlName="title" — Reactive Forms directive that binds the input to a form control:
+
+                        Connects this input to the FormControl named "title" in the reportForm FormGroup.
+                        
+                        Any changes typed into this input automatically update the reportForm.get('title') value.
+                        
+                        Allows validation, dirty/touched tracking, and form state management. -->
                     <input matInput [matDatepicker]="reportDatePicker" formControlName="date" placeholder="select date">
+                    <!-- [for]="reportDatePicker binds from UI to add.ts -->
+                    
+                    <!-- matSuffix — Angular Material directive that positions this element as a suffix inside the mat-form-field:
+
+                        Places the element on the right side of the input field (inside the form field container).
+                        
+                        Typically used for icons, buttons, or indicators that appear after the input text.
+                        
+                        Example: In this case, a calendar icon button appears at the end of the date input field.
+                    
+                    [for]="reportDatePicker" — property binding that links the toggle button to the datepicker:
+
+                        for — attribute that specifies which datepicker this toggle controls.
+                        
+                        reportDatePicker — the template reference variable (#reportDatePicker) assigned to the <mat-datepicker> component below.
+                        
+                        When clicked, this toggle opens/closes the datepicker associated with that reference. -->
                     <mat-datepicker-toggle matSuffix [for]="reportDatePicker"></mat-datepicker-toggle>
+                    <!-- mat-datepicker is used to create a date picker to select a date -->
                     <mat-datepicker #reportDatePicker></mat-datepicker>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="full-width">
                     <mat-label>Category</mat-label>
+                    <!-- mat-select is used to create a dropdown select component
+                     
+                    formControlName is used to bind the select component to a form control -->
                     <mat-select formControlName="category" placeholder="select category">
+                        <!-- mat-option is used to create an option within the select component -->
                         <mat-option value="Security">Security</mat-option>
                         <mat-option value="Safety">Safety</mat-option>
                         <mat-option value="Property">Property</mat-option>
@@ -34,20 +119,62 @@
 
                 <mat-form-field appearance="outline" class="full-width">
                     <mat-label>Image</mat-label>
+                    <!-- [value]="..." — property binding that dynamically sets the input's value:
+
+                        value — the HTML input's displayed text.
+                        
+                        [value] — Angular property binding (updates whenever the bound expression changes).
+                        
+                        selectedFile ? selectedFile.name: '' — ternary operator (conditional expression):
+
+                    selectedFile — checks if this component property exists and is truthy.
+                        
+                        ? — if truthy (file has been selected).
+                        
+                        selectedFile.name — displays the selected file's name.
+                        
+                        : — else operator (if falsy/no file selected).
+                        
+                        '' — displays an empty string (blank input field). -->
                     <input matInput readonly [value]="selectedFile ? selectedFile.name: '' " placeholder="Select an image">
+                    <!-- (click)="..." — event binding that listens for click events:
+
+                    (click) — listens when user clicks this button.
+
+                    fileInput.click() — executes this action when clicked. -->
                     <button mat-icon-button matSuffix type="button" (click)="fileInput.click()">
                         <mat-icon>attach_file</mat-icon>
                     </button>
+                    <!-- fileInput — template reference variable (#fileInput) that refers to the hidden file input element below:
+                     
+                    #fileInput — assigns this reference name to the file input element.
+                    
+                    Allows you to access that element from the template.-->
                     <input #fileInput type="file" (change)="onFileSelected($event)" accept="image/*" style="display : none;">
                 </mat-form-field>
 
                 <div class = "image" align="center">
+                    <!-- "If an image URL exists, display an image with height 320 pixels using that URL as the source." -->
                     @if(imageUrl){
                         <img height="320" [src]="imageUrl"/>
                     }
                 </div>
 
+                <!-- mat-card-actions is used to define the actions section of the card -->
                 <mat-card-actions class="action-buttons">
+                    <!-- mat-raised-button
+                            -An Angular Material directive that styles a button with a raised appearance:
+                            -Applies Material Design styling with shadow effects.
+                            -Has background color, hover animations, and ripple effects on click.
+                            -Creates a button that looks "elevated" or "floating" above the page.
+                            -Used for primary or important actions. 
+                            
+                        routerLink
+                            -An Angular Router directive that enables client-side navigation without page reload:
+                            -Binds a navigation path to an element (<button>, <a>, etc.).
+                            -When clicked, Angular's router navigates to the specified route.
+                            -Takes a route path as input: routerLink="/path" or [routerLink]="['/path', id]".
+                            -Updates the URL in the address bar and loads the corresponding component.-->
                     <button mat-raised-button type="button" routerLink="/reports">Back</button>
                     <button mat-raised-button type="submit">{{id? 'Update':'Submit'}}</button>
                 </mat-card-actions>

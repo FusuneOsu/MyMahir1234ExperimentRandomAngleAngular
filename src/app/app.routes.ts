@@ -10,9 +10,16 @@ import { authGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
     {
-        path: '',
+        path: '', /* The URL path. When user visits this URL, that component displays. */
         redirectTo: 'home',
+        /*  Redirects one path to another.
+            Example: empty path '' redirects to 'home', so visiting the 
+            root URL takes you to home page
+        */
         pathMatch: 'full',
+        /*  Determines how strictly the path should match.
+            'full' = must match the entire remaining URL
+            Without 'full', it matches partially (could cause issues */
     },
     {
         path: 'home',
@@ -25,6 +32,9 @@ export const routes: Routes = [
     {
         path: 'calculator',
         component: Calculator
+        /*  Which component to display when that path is accessed.
+            Example: path: 'calculator', component: Calculator shows 
+            Calculator component at /calculator */
     },
     {
         path: 'todo',
@@ -34,6 +44,9 @@ export const routes: Routes = [
         path: 'reports',
         component: Reports,
         canActivate: [authGuard]
+        /*  A route guard - protects a route by checking a condition before allowing access.
+            Example: canActivate: [authGuard] means only authorized users can access this route
+            If the guard fails, the user is blocked from that page */
     },
     {
         path: 'add',

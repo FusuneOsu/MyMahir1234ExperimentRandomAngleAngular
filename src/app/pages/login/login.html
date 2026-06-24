@@ -1,6 +1,7 @@
 <div class="card-container">
     <mat-card appearance="outlined" class="card">
         <mat-card-header>
+            <!-- showRegisterForm is a boolean toggle that switches between two forms on the same page. In the login.ts, it controls which form displays-->
             <mat-card-title>{{showRegisterForm ? 'Register':'Sign In'}}</mat-card-title>
         </mat-card-header>
         @if(!showRegisterForm){
@@ -9,6 +10,21 @@
                 <mat-form-field appearance="outline">
                     <mat-label>Email</mat-label>
                     <input matInput formControlName="email" placeholder="Enter your email">
+                    
+                    <!-- loginForm.controls is a property of Angular's FormGroup that provides access to all the individual form controls within that form group.
+
+                    In your code, loginForm is a FormGroup created in the TypeScript component with FormBuilder:
+
+                    What loginForm.controls contains:
+
+                    An object with keys matching your form control names (email, password)
+                    Each value is a FormControl instance for that field
+
+                    Check validation errors: .hasError('required'), .hasError('email')
+                    Track field interaction: .touched (whether user has interacted with the field)
+
+                    -->
+                    
                     @if(
                     (loginForm.controls['email'].hasError('required')||
                     loginForm.controls['email'].hasError('email')) && loginForm.controls['email'].touched
@@ -36,7 +52,7 @@
             </form>
         </mat-card-content>
         }
-        @else {
+        @else { <!-- ------------------------------------------------------------------------ -->
         <mat-card-content>
             <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
                 <mat-form-field appearance="outline">

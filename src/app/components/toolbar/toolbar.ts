@@ -20,8 +20,11 @@ interface menuItem {
 
 export class Toolbar
 {
-
+  /* Creates a public array called menu that holds navigation menu items
+  Type: menuItem[] (array of menuItem objects defined at the top of the file) */
   public menu: menuItem[] = [
+    /* title: The display text shown in the UI (e.g., "Home", "To-do")
+    route: The path to navigate to when clicked (e.g., "/home", "/todo") */
     {title: 'Home', route: '/home'},
     {title: 'Calculatore', route: 'calculator'},
     {title: 'To-do', route: '/todo'},
@@ -38,9 +41,11 @@ export class Toolbar
   {
 
   }
-
+  // When a user clicks one of those buttons, the navigatePage() method is called with that specific clicked item passed as an argument:
   navigatePage(item: any)
   {
+    /* menu is used in the template to loop through all items
+    item is used in the method to handle one specific clicked item */
     this.router.navigateByUrl(item.route);
     this.data.publishEvent(item.title)
   }

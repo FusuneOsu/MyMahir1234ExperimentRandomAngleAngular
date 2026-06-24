@@ -2,12 +2,17 @@
 
   <div class="header">  
     <h1>MyMahir Angular Proyekt</h1>
-    <p>{{ pageTitle }}</p>
+    <p>{{ pageTitle }}</p> <!-- app.ts does processing, html display only -->
     <h2>Tiki Taka</h2>
     <h5>smol</h5>
   </div>
 
-  <app-toolbar></app-toolbar>
+  <app-toolbar></app-toolbar> <!-- insert customt component toolbar.ts -->
 
-  <router-outlet/> 
+  <router-outlet/> <!-- Navigation for the toolbar -->
+  <!--  This is Angular's built-in component for routing
+        Acts as a placeholder that displays different pages/components based on the current URL
+        When you navigate to /calculator, the Calculator component appears here
+        When you navigate to /login, the Login component appears here instead
+        Without <router-outlet/>, your router wouldn't know where to display routed components -->
 </main>

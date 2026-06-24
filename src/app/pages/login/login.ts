@@ -27,16 +27,18 @@ export class Login {
     private uiService: Ui,
     private dataService: Data
   ){
+    // reactive form definitions created using Angular's FormBuilder
+    // The empty [''] is the initial/default value for each form control when the form first loads.
     this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]]
+      email: ['', [Validators.required, Validators.email]], // email field: Required and must be a valid email format
+      password: ['', [Validators.required]] // password field: Required
     });
     this.signupForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      phone: [''],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
-      confirm_password: ['', [Validators.required]]
+      name: ['', Validators.required], // name: Required
+      phone: [''], // phone: Optional (no validators)
+      email: ['', [Validators.required, Validators.email]], // email: Required and valid email format
+      password: ['', [Validators.required]], // password: Required
+      confirm_password: ['', [Validators.required]] // confirm_password: Required
     })
   }
 
@@ -44,6 +46,7 @@ export class Login {
     this.showPassword = !this.showPassword
   }
 
+  // this other one is for "Confirm Password" field
   onshowPassword2(){
     this.showPassword2 = !this.showPassword2
   }
@@ -55,7 +58,6 @@ export class Login {
     this.loginForm.setValue({
       email: '',
       password: '',
-
     })
 
     this.signupForm.setValue({
@@ -68,27 +70,31 @@ export class Login {
   }
 
   async onSubmit(){
+    // Starts by assuming it's a login submission (gets email + password).
     let submitData = this.loginForm.value;
 
     try{
-
+      // // SIGNUP PATH
       if(this.showRegisterForm){
-        submitData = this.signupForm.value;
-        const response: any = await this.apiService.httpPost('/auth/register', submitData)
+        submitData = this.signupForm.value; // Gets signup form data (name, email, password, confirm_password, phone)
+        const response: any = await this.apiService.httpPost('/auth/register', submitData) // Sends it to /auth/register endpoint
 
+        // Validates passwords match before proceeding
         if(submitData.password != submitData.confirm_password){
           this.uiService.openSnackBar('Password and confirmed password do not match','OK');
           return;
         }
 
+        // If registration successful, shows success message and switches back to login form
         if(response.success){
           this.uiService.openSnackBar('Registration Successful','OK')
           this.onShowRegisterForm();
         }
 
-      } else {
-        const response: any = await this.apiService.httpPost('/auth/login', submitData)
+      } else { // // LOGIN PATH
+        const response: any = await this.apiService.httpPost('/auth/login', submitData) // Sends login credentials to /auth/login
 
+        // If successful: saves token & user, redirects to reports page
         if(response.success){
           let token = response.token;
           //save token function
@@ -97,10 +103,12 @@ export class Login {
 
           this.router.navigateByUrl('/reports');
         } else {
+          // If failed: shows error message
           this.uiService.openSnackBar('Invalid email or password','OK')
         }
       }
 
+    // Catches any network or unexpected errors and displays them
     }catch(err: any) {
       this.uiService.openSnackBar('An error occured'+ err.message ,'OK')
     }

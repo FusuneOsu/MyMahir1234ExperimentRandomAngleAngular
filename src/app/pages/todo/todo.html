@@ -5,17 +5,20 @@
         
         <div class="header-container">
             
+            <!-- mat-label is an Angular Material component for displaying text/labels with Material Design styling. -->
             <mat-label class="header-text">To-do List</mat-label>
             
             <div class="btn-container">
-                <button mat-button style="margin-right: 1em" (click)="onAdd()">Add New</button>
-                <button mat-button style="margin-right: 1em" (click)="onClear()">Clear To-do</button>   
+                <button mat-button style="margin-right: 1em" (click)="onAdd()">Add New</button> <!-- listens for click and executes onAdd() -->
+                <button mat-button style="margin-right: 1em" (click)="onClear()">Clear To-do</button> <!-- listens for click and executes onClear() -->   
             
             </div>
             
         </div>
         
         <div class="list-container">
+            <!-- <mat-list> is a container component that wraps and formats a series of <mat-list-item>. 
+            As the base list component, it provides Material Design styling, but no behavior of its own. -->
             <mat-list>
 
                 @for(todo of todoList; track $index){
@@ -23,7 +26,13 @@
                         <div class="todo-item">
                             
                             <button mat-icon-button (click)="onSelected($index)">
+                                <!-- <mat-icon> displays SVG icons by directly inlining the SVG content into the DOM as a child 
+                                    of itself. This approach offers an advantage over an <img> tag or a CSS background-image because 
+                                    it allows styling the SVG with CSS. For example, the default color of the SVG content is the 
+                                    CSS currentColor value. This makes SVG icons by default have the same color as surrounding text, 
+                                    and allows you to change the color by setting the color style on the mat-icon element. -->
                                 <mat-icon color="primary">
+                                    <!-- {{}} -> Displays component data in the template (Component → UI, display only) -->
                                     {{todo.selected ? 'check_box' : 'check_box_outline_blank'}}
                                 </mat-icon>
                             </button>
